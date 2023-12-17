@@ -1,7 +1,3 @@
-<h1>Concepto AI</h1>
+# This repository has been moved!
 
-<h2>Generate websites with AI</h2>
-
-<https://concepto-docs.vercel.app>
-
-Instructions: <https://concepto-docs.vercel.app/self-hosted/setup>
+Go to [concepto-ai/app](https://github.com/concepto-ai/app) to continue.
