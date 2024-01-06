@@ -5,6 +5,7 @@ import "@tldraw/tldraw/tldraw.css";
 import { useEditor } from "@tldraw/tldraw";
 import { getSvgAsImage } from "@/lib/getSvgAsImage";
 import { blobToBase64 } from "@/lib/blobToBase64";
+import { useRouter } from "next/navigation"; // Added import
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { PreviewModal } from "@/components/PreviewModal";
@@ -14,6 +15,7 @@ const Tldraw = dynamic(async () => (await import("@tldraw/tldraw")).Tldraw, {
 });
 
 export default function Home() {
+  const router = useRouter(); // Added router
   const [html, setHtml] = useState<null | string>(null);
 
   useEffect(() => {
@@ -31,7 +33,17 @@ export default function Home() {
 
   return (
     <>
+
       <div className={`w-screen h-screen`}>
+        {/* Logout Link */}
+        <a
+          href="/api/auth/signout"
+          className="fixed top-4 left-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block"
+          style={{ zIndex: 1000, textDecoration: "none" }}
+        >
+          Logout
+        </a>
+
         <Tldraw persistenceKey="tldraw">
           <ExportButton setHtml={setHtml} />
         </Tldraw>
@@ -54,7 +66,7 @@ export default function Home() {
 function ExportButton({ setHtml }: { setHtml: (html: string) => void }) {
   const editor = useEditor();
   const [loading, setLoading] = useState(false);
-  // A tailwind styled button that is pinned to the bottom right of the screen
+
   return (
     <button
       onClick={async (e) => {
@@ -97,7 +109,7 @@ function ExportButton({ setHtml }: { setHtml: (html: string) => void }) {
           setLoading(false);
         }
       }}
-      className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ="
+      className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       style={{ zIndex: 1000 }}
     >
       {loading ? (
